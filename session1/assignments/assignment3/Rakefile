@@ -1,0 +1,12 @@
+namespace :files do
+ desc 'rename received file suffix from yaml to yml'
+ task :rename_yml, [:file] do |t, args|
+   puts "path #{args.file}"
+   #puts ENV["PATH"]
+   #file = File.new(args.file, "r+")
+   puts "file opened"
+   #puts "#{file.path()}"
+   puts File.exist?(args.file) ? File.rename(args.file,"#{args.file}.yml") : "File #{args.file} does not exist."
+   #puts "#{file.path()}"
+ end
+end
