@@ -1,12 +1,13 @@
 namespace :files do
  desc 'rename received file suffix from yaml to yml'
- task :rename_yml, [:file] do |t, args|
-   puts "path #{args.file}"
-   #puts ENV["PATH"]
-   #file = File.new(args.file, "r+")
-   puts "file opened"
-   #puts "#{file.path()}"
-   puts File.exist?(args.file) ? File.rename(args.file,"#{args.file}.yml") : "File #{args.file} does not exist."
-   #puts "#{file.path()}"
+ task :rename_yaml, [:file, :path] do |t, args|
+   raise "No file name received"                      unless args.file
+   raise "File #{args.file} is not of yaml type"      unless File.extname(args.file) == ".yaml"
+   path_expd = "#{File.expand_path(args.path)}/"
+   raise "File #{path_expd}#{args.file} is not valid" unless File.file?("#{path_expd}#{args.file}")
+   file_base = File.basename(args.file,".yaml")
+   raise "File #{file_base}.yml already exists"       if File.exist?("#{path_expd}#{file_base}.yml")
+   File.rename("#{path_expd}#{args.file}","#{path_expd}#{file_base}.yml")
+   puts "File #{path_expd}#{args.file} renamed to #{path_expd}#{file_base}.yml"
  end
 end
