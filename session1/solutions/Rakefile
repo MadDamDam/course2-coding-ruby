@@ -138,7 +138,7 @@ task :archive  do |t,args|
   rescue Exception=>e
     puts "Error creating sub directory build: #{e}"
   else
-    arc_file_name = path + NEW_ARCHIVE_PATH + File.basename(path).gsub(/[^a-z,A-Z]/, '_') + NEW_ARCHIVE_SUFF
+    arc_file_name = path + NEW_ARCHIVE_PATH + File.basename(path).gsub(/[^a-zA-Z0-9]/, '_') + NEW_ARCHIVE_SUFF
     begin
       arc_file = File.open(arc_file_name,"w")
     rescue Exception=>e
